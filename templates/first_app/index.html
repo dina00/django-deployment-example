@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+{% extends "first_app/base.html" %}
+{% load my_extras %}
+  {% block body_block %}
+  {% if request.user.is_authenticated %}
+   <h1>Hi Welcome {{ request.user.username }}</h1>
+{% else %}
+<h1>Hi Welcome</h1>
+{% endif %}
+    <h2>here are your records</h2>
+    <h3>Go to /formpage to fill out the form</h3>
+    <a href="{% url 'first_app:other' %}">The other page</a>
+    <h3>
+      {{text|cut:'Again'}}
+      {{number|add:300}}
+    </h3>
+    <div class="djangotwo">
+      {% if access_records %}
+      <table>
+        <thead>
+          <th>Site Name</th>
+          <th>Date Accessed</th>
+        </thead>
+        {% for i in access_records %}
+          <tr>
+              <td>{{i.name}}</td>
+              <td>{{i.date}}</td>
+          </tr>
+          {% endfor %}
+      </table>
+      {% else %}
+          <p>no records found</p>
+        {% endif %}
+      </div>
+      {% endblock %}
